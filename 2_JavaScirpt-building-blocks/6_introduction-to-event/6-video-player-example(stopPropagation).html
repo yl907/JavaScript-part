@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>event learning section</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        div {
+            border: 1px black solid;
+            padding: 4em;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Video player example
+    In this example our page contains a video, which is hidden initially, and a button labeled "Display video". We want the following interaction:
+
+    When the user clicks the "Display video" button, show the box containing the video, but don't start playing the video yet.
+    When the user clicks on the video, start playing the video.
+    When the user clicks anywhere in the box outside the video, hide the box. -->
+    
+    <button>Display video</button>
+
+    <!-- We're using CSS to hide elements with the "hidden" class set.(but this is not working in my own computer, what does they do with "hidden" class?) 
+    
+        I got it, use this:
+
+        .hidden {
+            display: none;
+        }
+    -->
+    <div class="hidden">
+      <video>
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+          type="video/webm" />
+        <p>
+          Your browser doesn't support HTML video. Here is a
+          <a href="rabbit320.mp4">link to the video</a> instead.
+        </p>
+      </video>
+    </div>
+
+    <script>
+        // As we saw in the last section, event bubbling can sometimes create problems, but there is a way to prevent it. The Event object has a function available on it called stopPropagation() which, when called inside an event handler, prevents the event from bubbling up to any other elements.
+        const btn = document.querySelector("button");
+        const box = document.querySelector("div");
+        const video = document.querySelector("video");
+
+        btn.addEventListener("click", () => box.classList.remove("hidden"));
+
+        video.addEventListener("click", (event) => {
+            // All we're doing here is calling stopPropagation() on the event object in the handler for the <video> element's 'click' event. This will stop that event from bubbling up to the box.
+            // so this event is only used on one specific element, and not propagate.
+            event.stopPropagation();
+            video.play();
+        });
+
+        box.addEventListener("click", () => box.classList.add("hidden"));
+
+
+        // Event capture(reversed event bubbling)
+        // An alternative form of event propagation is event capture. This is like event bubbling but the order is reversed: so instead of the event firing first on the innermost element targeted, and then on successively less nested elements, the event fires first on the least nested element, and then on successively more nested elements, until the target is reached.
+
+        // some example using capture:
+        // document.body.addEventListener("click", handleClick, { capture: true });
+        // container.addEventListener("click", handleClick, { capture: true });
+    </script>
+  </body>
+</html>

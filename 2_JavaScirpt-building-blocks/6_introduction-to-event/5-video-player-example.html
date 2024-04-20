@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>event learning section</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        div {
+            border: 1px black solid;
+            padding: 4em;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Video player example
+    In this example our page contains a video, which is hidden initially, and a button labeled "Display video". We want the following interaction:
+
+    When the user clicks the "Display video" button, show the box containing the video, but don't start playing the video yet.
+    When the user clicks on the video, start playing the video.
+    When the user clicks anywhere in the box outside the video, hide the box. -->
+    
+    <button>Display video</button>
+
+    <!-- We're using CSS to hide elements with the "hidden" class set.(but this is not working in my own computer, what does they do with "hidden" class?) 
+    
+        I got it, use this:
+
+        .hidden {
+            display: none;
+        }
+    -->
+    <div class="hidden">
+      <video>
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+          type="video/webm" />
+        <p>
+          Your browser doesn't support HTML video. Here is a
+          <a href="rabbit320.mp4">link to the video</a> instead.
+        </p>
+      </video>
+    </div>
+
+    <script>
+        const btn = document.querySelector("button");
+        const box = document.querySelector("div");
+        const video = document.querySelector("video");
+
+        // 在box的类表中删去hidden类，从而显示该元素
+        btn.addEventListener("click", () => box.classList.remove("hidden"));
+        video.addEventListener("click", () => video.play());
+        // 在box的类表中加入hidden类，从而隐藏该元素
+        box.addEventListener("click", () => box.classList.add("hidden"));
+        // You should see that when you click the button, the box and the video it contains are shown. But then when you click the video, the video starts to play, but the box is hidden again!
+        // The video is inside the <div> — it is part of it — so clicking the video runs both the event handlers, causing this behavior.
+        
+    
+    </script>
+  </body>
+</html>

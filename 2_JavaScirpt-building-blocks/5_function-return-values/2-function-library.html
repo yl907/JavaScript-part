@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Function library example</title>
+  <style>
+    input {
+      font-size: 2em;
+      margin: 10px 1px 0;
+    }
+  </style>
+  </head>
+<body>
+
+  <input class="numberInput" type="text">
+  <p></p>
+
+  <script>
+    const input = document.querySelector('.numberInput');
+    const para = document.querySelector('p');
+
+    function squared(num) {
+        return num * num;
+    }
+
+    function cubed(num) {
+        return num * num * num;
+    }
+
+    function factorial(num) {
+        if (num < 0) return undefined;
+        if (num === 0) return 1;
+        let x = num - 1;
+        while (x > 1) {
+            num *= x;
+            x--;
+        }
+        return num;
+    }
+
+    // By adding a listener to the change event, this function runs whenever the change event fires on the text input — that is when a new value is entered into the text input, and submitted (e.g., enter a value, then un-focus the input by pressing Tab or Return). When this anonymous function runs, the value in the input is stored in the num constant.
+    input.addEventListener("change", () => {
+    const num = parseFloat(input.value);
+    // The if statement prints an error message if the entered value is not a number. The condition checks if the expression isNaN(num) returns true. The isNaN() function tests whether the num value is not a number — if so, it returns true, and if not, it returns false.
+    if (isNaN(num)) {
+        para.textContent = "You need to enter a number!";
+    } else {
+        // If the condition returns false, the num value is a number and the function prints out a sentence inside the paragraph element that states the square, cube, and factorial values of the number. The sentence calls the squared(), cubed(), and factorial() functions to calculate the required values.
+        para.textContent = `${num} squared is ${squared(num)}. `;
+        para.textContent += `${num} cubed is ${cubed(num)}. `;
+        para.textContent += `${num} factorial is ${factorial(num)}. `;
+    }
+    });
+  </script>
+</body>
+</html>

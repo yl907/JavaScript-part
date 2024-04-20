@@ -1,0 +1,27 @@
+<!-- Arrow function live sample -->
+<!-- Here's a complete working example of the "keydown" example we discussed above: -->
+
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Function scope example</title>
+    </head>
+    <body>
+        <input id="textBox" type="text" />
+        <div id="output"></div>
+        
+        <script>
+            const textBox = document.querySelector("#textBox");
+            const output = document.querySelector("#output");
+
+            textBox.addEventListener("keydown", (event) => {
+            output.textContent = `You pressed "${event.key}".`;
+            });
+        </script>
+    
+    </body>
+</html>
+
+

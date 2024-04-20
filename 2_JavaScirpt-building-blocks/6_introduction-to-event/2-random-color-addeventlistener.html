@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Random color example — event handler attribute</title>
+    <style>
+      button {
+        margin: 10px
+      }
+
+      button#button_5_eventObject {
+        font-size: 3em;
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="button1">Change color-click</button>
+    <button id="button2">Change color-focus&blur</button>
+    <button id="button3">Change color-dblclick</button>
+    <button id="button4">Change color-mouseover&mouseout</button>
+    <button id="button5">click the button to remove click event handler on Button1</button>
+    <p id="backgroundColorData">1</p>
+    <button id="button_3_eventHandlerProperties">change color(eventHandlerProperties)</button>
+    <button id="button_5_eventObject">change color(event object)</button>
+
+    <script>
+      const btn1 = document.querySelector('#button1');
+      const btn2 = document.querySelector('#button2');
+      const btn3 = document.querySelector('#button3');
+      const btn4 = document.querySelector('#button4');
+      const btn5 = document.querySelector("#button5")
+      const bgColText = document.querySelector("#backgroundColorData");
+      
+      function updateBgColText(){
+        const bgColor = document.body.style.backgroundColor;
+        console.log(bgColor);
+        bgColText.textContent = bgColor;
+      }
+
+      function random(number) {
+        return Math.floor(Math.random() * (number+1));
+      }
+
+      function changeBackground() {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+      }
+
+      // 1.Listening for other events
+      // Now try changing click to the following different values in turn, and observing the results in the example:
+
+      // 1.1.focus and blur — The color changes when the button is focused and unfocused; try pressing the tab to focus on the button and press the tab again to focus away from the button. These are often used to display information about filling in form fields when they are focused, or to display an error message if a form field is filled with an incorrect value.
+      // 1.2.dblclick — The color changes only when the button is double-clicked.
+      // 1.3.mouseover and mouseout — The color changes when the mouse pointer hovers over the button, or when the pointer moves off the button, respectively.
+      btn1.addEventListener('click', changeBackground);
+      btn1.addEventListener("click", updateBgColText);
+
+      btn2.addEventListener('focus', () => {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+        updateBgColText();
+      });
+      btn2.addEventListener('blur', () => {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+        updateBgColText();
+      });
+
+      btn3.addEventListener('dblclick', () => {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+        updateBgColText();
+      });
+
+      btn4.addEventListener('mouseover', () => {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+        updateBgColText();
+      });
+      btn4.addEventListener('mouseout', () => {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+        updateBgColText();
+      });
+
+
+      // 2.Removing listeners
+      // 2.1.If you've added an event handler using addEventListener(), you can remove it again using the removeEventListener() method. For example, this would remove the changeBackground() event handler:
+      btn5.addEventListener("click", () => {
+        btn1.removeEventListener("click", changeBackground);
+        btn1.removeEventListener("click", updateBgColText);
+      });
+
+      // 2.2.Event handlers can also be removed by passing an AbortSignal to addEventListener() and then later calling abort() on the controller owning the AbortSignal. For example, to add an event handler that we can remove with an AbortSignal:
+      // const controller = new AbortController();
+      // let button_2_removing_listeners = document.querySelector("#button_2_removing_listeners")
+      // button_2_removing_listeners.addEventListener("click",
+      //   () => {
+      //     const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+      //     document.body.style.backgroundColor = rndCol;
+      //   },
+      //   { signal: controller.signal } // pass an AbortSignal to this handler
+      // );
+      // // Then the event handler created by the code above can be removed like this:
+      // controller.abort(); // removes any/all event handlers associated with this controller
+
+
+      // 3.Event handler properties(onclick)
+      // Objects (such as buttons) that can fire events also usually have properties whose name is on followed by the name of the event. For example, elements have a property onclick. This is called an event handler property. To listen for the event, you can assign the handler function to the property.
+
+      // 3.1.For example, we could rewrite the random-color example like this:
+      const button_3_eventHandlerProperties = document.querySelector("#button_3_eventHandlerProperties");
+
+      function random(number) {
+        return Math.floor(Math.random() * (number + 1));
+      }
+
+      button_3_eventHandlerProperties.onclick = () => {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+      };
+
+      // 3.2.You can also set the handler property to a named function:
+
+      // function bgChange() {
+      //   const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+      //   document.body.style.backgroundColor = rndCol;
+      // }
+      // button_3_eventHandlerProperties.onclick = bgChange;
+
+      // 3.3.However, with event handler properties(such as "onclick"), you can't add more than one handler for a single event. For example, you can call addEventListener('click', handler) on an element multiple times, with different functions specified in the second argument:
+      // element.addEventListener("click", function1);
+      // element.addEventListener("click", function2);
+      // // This is impossible with event handler properties because any subsequent attempts to set the property will overwrite earlier ones:
+      // element.onclick = function1;
+      // element.onclick = function2;
+
+
+      // 4.Inline event handlers — don't use these(use JavaScript inside the HTML)
+      // 4.1.An inline event handler example,
+      // You might also see a pattern like this in your code:
+
+      // 4.1.1.HTML part:
+      // <button onclick="bgChange()">Press me</button>
+      // 4.1.2.JavaScript part:
+      // function bgChange() {
+      //   const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+      //   document.body.style.backgroundColor = rndCol;
+      // }
+
+      // You can find HTML attribute equivalents for many of the event handler properties; however, you shouldn't use these — they are considered bad practice. It might seem easy to use an event handler attribute if you are doing something really quick, but they quickly become unmanageable and inefficient.
+      // For a start, it is not a good idea to mix up your HTML and your JavaScript, as it becomes hard to read. Keeping your JavaScript separate is a good practice, and if it is in a separate file you can apply it to multiple HTML documents.
+
+      // 4.2.Inline event handlers is bad at maintenance.
+      // Even in a single file, inline event handlers are not a good idea. One button is OK, but what if you had 100 buttons? You'd have to add 100 attributes to the file; it would quickly turn into a maintenance nightmare. With JavaScript, you could easily add an event handler function to all the buttons on the page no matter how many there were, using something like this(this is good):
+
+      // const buttons_4_InlineEventHandlers = document.querySelectorAll("#button_4_InlineEventHandlers");
+      // for (const button of buttons_4_InlineEventHandlers) {
+      //   button.addEventListener("click", bgChange);
+      // }
+
+      // 4.3.Finally, many common server configurations will disallow inline JavaScript, as a security measure.
+      // You should never use the HTML event handler attributes — those are outdated, and using them is bad practice.
+
+
+      // 5.Event objects
+      // Sometimes, inside an event handler function, you'll see a parameter specified with a name such as event, evt, or e. This is called the event object, and it is automatically passed to event handlers to provide extra features and information. For example, let's rewrite our random color example again slightly(in this case, the event object is "click"):
+      const button_5_eventObject = document.querySelector("#button_5_eventObject");
+
+      function random(number) {
+        return Math.floor(Math.random() * (number + 1));
+      }
+
+      function buttonBgChange(e) {
+        const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        e.target.style.backgroundColor = rndCol;
+        console.log(e);
+      }
+
+      button_5_eventObject.addEventListener("click", buttonBgChange);
+
+      // Here you can see we are including an event object, e, in the function, and in the function setting a background color style on e.target — which is the button itself. The target property of the event object is always a reference to the element the event occurred upon. So, in this example, we are setting a random background color on the button, not the page.
+      // Note: You can use any name you like for the event object — you just need to choose a name that you can then use to reference it inside the event handler function. e/evt/event is most commonly used by developers because they are short and easy to remember. It's always good to be consistent — with yourself, and with others if possible.
+
+
+      // 6.Extra properties of event objects
+      // Some event objects add extra properties that are relevant to that particular type of event. For example, the keydown event fires when the user presses a key. Its event object is a KeyboardEvent, which is a specialized Event object with a "key" property that tells you which key was pressed:
+     
+      // const textBox = document.querySelector("#textBox");
+      // const output = document.querySelector("#output");
+      // textBox.addEventListener("keydown", (event) => {
+      //   output.textContent = `You pressed "${event.key}".`;
+      // });
+
+
+    </script>
+  </body>
+</html>

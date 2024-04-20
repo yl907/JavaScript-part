@@ -1,0 +1,13 @@
+<!-- Extra properties of event objects
+Most event objects have a standard set of properties and methods available on the event object; see the Event object reference for a full list.
+
+Some event objects add extra properties that are relevant to that particular type of event. For example, the keydown event fires when the user presses a key. Its event object is a KeyboardEvent, which is a specialized Event object with a key property that tells you which key was pressed: -->
+<input id="textBox" type="text" />
+<div id="output"></div>
+<script>
+    const textBox = document.querySelector("#textBox");
+    const output = document.querySelector("#output");
+    textBox.addEventListener("keydown", (event) => {
+    output.textContent = `You pressed "${event.key}".`;
+    });
+</script>

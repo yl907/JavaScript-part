@@ -1,0 +1,17 @@
+<!-- For example, say you have an HTML file that is calling in two external JavaScript files, and both of them have a variable and a function defined that use the same name: -->
+<!-- Excerpt from my HTML -->
+<script src="3.0-first.js"></script>
+<script src="3.0-second.js"></script>
+<script>
+  greeting();
+</script>
+
+<!-- Both functions you want to call are called greeting(), but you can only ever access the first.js file's greeting() function (the second one is ignored). In addition, an error results when attempting (in the second.js file) to assign a new value to the name variable — because it was already declared with const, and so can't be reassigned. -->
+<!-- this is the error message:
+  3.0-second.js:1 Uncaught SyntaxError: Identifier 'name' has already been declared (at 3.0-second.js:1:1) 
+-->
+
+
+<!-- Keeping parts of your code locked away in functions avoids such problems, and is considered the best practice. -->
+
+

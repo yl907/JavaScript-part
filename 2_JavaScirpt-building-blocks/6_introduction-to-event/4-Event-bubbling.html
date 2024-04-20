@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>event learning section</title>
+    <style>
+        body{
+            border: 1px black solid;
+        }
+
+        div{
+            border: 1px rebeccapurple solid;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- 1 -->
+    <div id="container1">
+        <button id="button1">Click me!</button>
+    </div>
+    <pre id="output1"></pre>
+
+    <!-- 2 -->
+    <div id="container2">
+        <button id="button2">Click me!</button>
+    </div>
+    <pre id="output2"></pre>
+
+    <script>
+        // 1.easy one
+        const output1 = document.querySelector("#output1");
+        function handleClick1(e) {
+        output1.textContent += `You clicked on a ${e.currentTarget.tagName} element\n`;
+        }
+
+        const container1 = document.querySelector("#container1");
+        container1.addEventListener("click", handleClick1);
+        // Here the button is inside another element, a <div> element. We say that the <div> element here is the parent of the element it contains. What happens if we add a click event handler to the parent, then click the button?
+        // You'll see that the parent fires a click event when the user clicks the button: You clicked on a DIV element
+        // This makes sense: the button is inside the <div>, so when you click the button you're also implicitly clicking the element it is inside.
+
+        
+        // 2.Bubbling example
+        const output2 = document.querySelector("#output2");
+        function handleClick2(e) {
+            output2.textContent += `You clicked on a ${e.currentTarget.tagName} element\n`;
+        }
+
+        const container2 = document.querySelector("#container2");
+        const button2 = document.querySelector("#button2");
+
+        document.body.addEventListener("click", handleClick2);
+        container2.addEventListener("click", handleClick2);
+        button2.addEventListener("click", handleClick2);        
+        // You'll see that all three elements fire a click event when the user clicks the button:
+        // """
+        // You clicked on a BUTTON element
+        // You clicked on a DIV element
+        // You clicked on a BODY element
+        // """
+
+        // In this case:
+        // the click on the button fires first
+        // followed by the click on its parent (the <div> element)
+        // followed by the <div> element's parent (the <body> element).
+
+        //We describe this by saying that the event bubbles up from the innermost element that was clicked.
+
+        // This behavior can be useful and can also cause unexpected problems. In the next sections, we'll see a problem that it causes, and find the solution.
+    
+    </script>
+  </body>
+</html>
