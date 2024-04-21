@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 1.this is a external javascript, we can use a modern JavaScript feature "defer" to solve the problem, 
+        which tell the browser to continue downloading the HTML content once the <script> tag element has been reached. 
+        -->
+        <script src="script1.js" defer></script>
+        
+
+        <!-- 2.this is a internal javascript, we didn't use the "defer" solution for the internal JavaScript because "defer" only works for external scripts."  -->
+        <script>
+            const buttonA = document.querySelector("#button_A");
+            const headingA = document.querySelector("#heading_A");
+
+            buttonA.onclick = () => {
+                const name = prompt("What is your name?");
+                alert(`Hello ${name}, nice to see you!`);
+                headingA.textContent = `Welcome ${name}`;
+            };
+        </script>
+
+    </head>
+
+    
+
+    <body>
+        
+    </body>
+</html>

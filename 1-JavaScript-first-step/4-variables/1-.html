@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <!-- choose a character set -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script>
+      const buttonA = document.querySelector("#button_A");
+      const headingA = document.querySelector("#heading_A");
+
+      buttonA.onclick = () => {
+        const name = prompt("What is your name?");
+        alert(`Hello ${name}, nice to see you!`);
+        headingA.textContent = `Welcome ${name}`;
+      };
+
+      // this is a built in function in javascript, so you don't have to use the addEventListener it yourself.
+      // it's the same as the state as: 
+      buttonA.addEventListener("click", () => {
+        const name = prompt("What is your name?");
+        alert(`Hello ${name}, nice to see you!`);
+        headingA.textContent = `Welcome ${name}`;
+      })
+      // or say, we have already attach the "onclick" function to the "click" event.
+      // like this:
+      buttonA.addEventListener("click", buttonA.onclick)
+
+    </script>
+  </head>
+
+
+  <body>
+
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+
+  <body>
+    <p>check the console log</p>
+    <script>
+      function listrepos() {
+        const URL = "https://api.github.com/users/MahekUnnisa/repos";
+        fetch(URL)
+          .then(result => result.json())
+          .then(data => console.log(data));
+      }
+      listrepos()
+    </script>
+  </body>
+</html>
+
+
